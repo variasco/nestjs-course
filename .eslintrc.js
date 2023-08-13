@@ -21,6 +21,7 @@ module.exports = {
     "@typescript-eslint/explicit-function-return-type": "off",
     "@typescript-eslint/explicit-module-boundary-types": "off",
     "prettier/prettier": "off",
+    "@typescript-eslint/no-unsafe-declaration-merging": "off",
     "@typescript-eslint/no-unused-vars": "warn",
   },
 };
