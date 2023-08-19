@@ -8,6 +8,7 @@ import {
   Patch,
   Post,
 } from "@nestjs/common";
+import { IdValidationPipe } from "../pipes/id.validation.pipe";
 import { FindTopPageDto } from "./dto/find.top.page.dto";
 import { TopPageModel } from "./top.page.model";
 
@@ -21,13 +22,16 @@ export class TopPageController {
   }
 
   @Get(":id")
-  async get(@Param("id") id: string) {}
+  async get(@Param("id", IdValidationPipe) id: string) {}
 
   @Delete(":id")
-  async delete(@Param("id") id: string) {}
+  async delete(@Param("id", IdValidationPipe) id: string) {}
 
   @Patch(":id")
-  async patch(@Param("id") id: string, @Body() dto: TopPageModel) {}
+  async update(
+    @Param("id", IdValidationPipe) id: string,
+    @Body() dto: TopPageModel,
+  ) {}
 
   @HttpCode(200)
   @Post()
