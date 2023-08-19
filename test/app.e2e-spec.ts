@@ -4,7 +4,11 @@ import { Types, disconnect } from "mongoose";
 import { CreateReviewDto } from "src/review/dto/create.review.dto";
 import * as request from "supertest";
 import { AppModule } from "./../src/app.module";
-import { REVIEW_NOT_FOUND } from "./../src/review/review.constants";
+import {
+  RATING_MAX_VALUE_ERROR,
+  RATING_MIN_VALUE_ERROR,
+  REVIEW_NOT_FOUND,
+} from "./../src/review/review.constants";
 
 const productId = new Types.ObjectId().toHexString();
 
@@ -37,6 +41,28 @@ describe("AppController (e2e)", () => {
       .then(({ body }) => {
         createdId = body._id;
         expect(createdId).toBeDefined();
+        done();
+      });
+  });
+
+  it("/review/create (POST) - fail min length", (done) => {
+    request(app.getHttpServer())
+      .post("/review/create")
+      .send({ ...testDto, rating: 0 })
+      .expect(400)
+      .then(({ body }) => {
+        expect(body.message?.[0]).toBe(RATING_MIN_VALUE_ERROR);
+        done();
+      });
+  });
+
+  it("/review/create (POST) - fail max length", (done) => {
+    request(app.getHttpServer())
+      .post("/review/create")
+      .send({ ...testDto, rating: 6 })
+      .expect(400)
+      .then(({ body }) => {
+        expect(body.message?.[0]).toBe(RATING_MAX_VALUE_ERROR);
         done();
       });
   });
