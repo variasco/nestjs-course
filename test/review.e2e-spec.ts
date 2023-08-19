@@ -1,14 +1,15 @@
 import { HttpStatus, INestApplication } from "@nestjs/common";
 import { Test, TestingModule } from "@nestjs/testing";
 import { Types, disconnect } from "mongoose";
-import { CreateReviewDto } from "src/review/dto/create.review.dto";
 import * as request from "supertest";
-import { AppModule } from "./../src/app.module";
+import { AppModule } from "../src/app.module";
+import { AuthDto } from "../src/auth/dto/auth.dto";
+import { CreateReviewDto } from "../src/review/dto/create.review.dto";
 import {
   RATING_MAX_VALUE_ERROR,
   RATING_MIN_VALUE_ERROR,
   REVIEW_NOT_FOUND,
-} from "./../src/review/review.constants";
+} from "../src/review/review.constants";
 
 const productId = new Types.ObjectId().toHexString();
 
@@ -20,9 +21,15 @@ const testDto: CreateReviewDto = {
   rating: 5,
 };
 
-describe("AppController (e2e)", () => {
+const loginDto: AuthDto = {
+  login: "a@m.com",
+  password: "123",
+};
+
+describe("ReviewController (e2e)", () => {
   let app: INestApplication;
   let createdId: string;
+  let token: string;
 
   beforeEach(async () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
@@ -31,6 +38,12 @@ describe("AppController (e2e)", () => {
 
     app = moduleFixture.createNestApplication();
     await app.init();
+
+    const response = await request(app.getHttpServer())
+      .post("/auth/login")
+      .send(loginDto);
+
+    token = response.body.access_token;
   });
 
   it("/review/create (POST) - success", (done) => {
@@ -87,19 +100,23 @@ describe("AppController (e2e)", () => {
       });
   });
 
-  it("/review/:id (DELETE) - success", () => {
-    return request(app.getHttpServer())
+  it("/review/:id (DELETE) - success", (done) => {
+    request(app.getHttpServer())
       .delete("/review/" + createdId)
-      .expect(200);
+      .set("Authorization", `Bearer ${token}`)
+      .expect(200)
+      .then(() => done());
   });
 
-  it("/review/:id (DELETE) - fail", () => {
-    return request(app.getHttpServer())
+  it("/review/:id (DELETE) - fail", (done) => {
+    request(app.getHttpServer())
       .delete("/review/" + new Types.ObjectId().toHexString())
+      .set("Authorization", `Bearer ${token}`)
       .expect(HttpStatus.NOT_FOUND, {
         statusCode: HttpStatus.NOT_FOUND,
         message: REVIEW_NOT_FOUND,
-      });
+      })
+      .then(() => done());
   });
 
   afterAll(() => {

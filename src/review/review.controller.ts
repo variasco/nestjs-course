@@ -11,7 +11,7 @@ import {
   UsePipes,
   ValidationPipe,
 } from "@nestjs/common";
-import { JwtAuthGuard } from "src/auth/guards/jwt.guard";
+import { JwtAuthGuard } from "../auth/guards/jwt.guard";
 import { CreateReviewDto } from "./dto/create.review.dto";
 import { REVIEW_DELETE_SUCCESS, REVIEW_NOT_FOUND } from "./review.constants";
 import { ReviewService } from "./review.service";
@@ -36,7 +36,7 @@ export class ReviewController {
 
     return {
       status: "OK",
-      statusCode: 200,
+      statusCode: HttpStatus.OK,
       message: REVIEW_DELETE_SUCCESS(id),
     };
   }
