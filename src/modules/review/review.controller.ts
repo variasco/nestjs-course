@@ -11,10 +11,10 @@ import {
   UsePipes,
   ValidationPipe,
 } from "@nestjs/common";
+import { IdValidationPipe } from "../../pipes/id.validation.pipe";
+import { DeleteSuccess } from "../../types/delete.success.response";
 import { JwtAuthGuard } from "../auth/guards/jwt.guard";
-import { IdValidationPipe } from "../pipes/id.validation.pipe";
-import { DeleteSuccess } from "../types/delete.success.response";
-import { CreateReviewDto } from "./dto/create.review.dto";
+import { CreateReviewDto } from "../review/dto/create.review.dto";
 import { REVIEW_DELETE_SUCCESS, REVIEW_NOT_FOUND } from "./review.constants";
 import { ReviewService } from "./review.service";
 

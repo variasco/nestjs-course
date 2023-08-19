@@ -1,11 +1,11 @@
 import { Module } from "@nestjs/common";
 import { ConfigModule, ConfigService } from "@nestjs/config";
 import { TypegooseModule } from "nestjs-typegoose";
-import { AuthModule } from "./auth/auth.module";
 import { getMongoConfig } from "./configs/mongo.config";
-import { ProductModule } from "./product/product.module";
-import { ReviewModule } from "./review/review.module";
-import { TopPageModule } from "./top.page/top.page.module";
+import { AuthModule } from "./modules/auth/auth.module";
+import { ProductModule } from "./modules/product/product.module";
+import { ReviewModule } from "./modules/review/review.module";
+import { TopPageModule } from "./modules/top.page/top.page.module";
 
 @Module({
   imports: [

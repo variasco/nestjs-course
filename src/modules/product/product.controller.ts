@@ -12,9 +12,9 @@ import {
   UsePipes,
   ValidationPipe,
 } from "@nestjs/common";
-import { IdValidationPipe } from "../pipes/id.validation.pipe";
+import { IdValidationPipe } from "../../pipes/id.validation.pipe";
+import { DeleteSuccess } from "../../types/delete.success.response";
 import { ReviewModel } from "../review/review.model";
-import { DeleteSuccess } from "../types/delete.success.response";
 import { CreateProductDto } from "./dto/create.product.dto";
 import { FindProductDto } from "./dto/find.product.dto";
 import {

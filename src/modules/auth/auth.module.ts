@@ -3,10 +3,10 @@ import { ConfigModule, ConfigService } from "@nestjs/config";
 import { JwtModule } from "@nestjs/jwt";
 import { PassportModule } from "@nestjs/passport";
 import { TypegooseModule } from "nestjs-typegoose";
-import { getJwtConfig } from "../configs/jwt.config";
+import { getJwtConfig } from "../../configs/jwt.config";
 import { AuthController } from "./auth.controller";
 import { AuthService } from "./auth.service";
-import { JwtStategy } from "./strategies/jwt.strategy";
+import { JwtStategy } from "../auth/strategies/jwt.strategy";
 import { UserModel } from "./user.model";
 
 @Module({

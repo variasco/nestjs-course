@@ -7,7 +7,7 @@ import {
   UsePipes,
   ValidationPipe,
 } from "@nestjs/common";
-import { AuthDto } from "./dto/auth.dto";
+import { AuthDto } from "../auth/dto/auth.dto";
 import { AuthService } from "./auth.service";
 import { USER_EXIST_ERROR } from "./auth.constants";
 

@@ -8,7 +8,7 @@ import {
   Patch,
   Post,
 } from "@nestjs/common";
-import { IdValidationPipe } from "../pipes/id.validation.pipe";
+import { IdValidationPipe } from "../../pipes/id.validation.pipe";
 import { FindTopPageDto } from "./dto/find.top.page.dto";
 import { TopPageModel } from "./top.page.model";
 

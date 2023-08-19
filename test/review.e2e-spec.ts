@@ -3,13 +3,13 @@ import { Test, TestingModule } from "@nestjs/testing";
 import { Types, disconnect } from "mongoose";
 import * as request from "supertest";
 import { AppModule } from "../src/app.module";
-import { AuthDto } from "../src/auth/dto/auth.dto";
-import { CreateReviewDto } from "../src/review/dto/create.review.dto";
+import { AuthDto } from "../src/modules/auth/dto/auth.dto";
+import { CreateReviewDto } from "../src/modules/review/dto/create.review.dto";
 import {
   RATING_MAX_VALUE_ERROR,
   RATING_MIN_VALUE_ERROR,
   REVIEW_NOT_FOUND,
-} from "../src/review/review.constants";
+} from "../src/modules/review/review.constants";
 
 const productId = new Types.ObjectId().toHexString();
 

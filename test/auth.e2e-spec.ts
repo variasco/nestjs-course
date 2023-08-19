@@ -3,8 +3,8 @@ import { Test, TestingModule } from "@nestjs/testing";
 import { disconnect } from "mongoose";
 import * as request from "supertest";
 import { AppModule } from "../src/app.module";
-import { USER_NOT_EXIST_ERROR } from "../src/auth/auth.constants";
-import { AuthDto } from "../src/auth/dto/auth.dto";
+import { USER_NOT_EXIST_ERROR } from "../src/modules/auth/auth.constants";
+import { AuthDto } from "../src/modules/auth/dto/auth.dto";
 
 const loginDto: AuthDto = {
   login: "a@m.com",
