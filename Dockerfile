@@ -7,5 +7,5 @@ ADD tsconfig.json tsconfig.json
 ADD tsconfig.build.json tsconfig.build.json
 ADD nest-cli.json nest-cli.json
 RUN npm run build
-# RUN npm prune --omit=dev --force
+RUN npm prune --omit=dev --force
 CMD [ "node", "./dist/main.js" ]
