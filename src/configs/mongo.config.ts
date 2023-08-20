@@ -21,7 +21,7 @@ function getMongoUri(configService: ConfigService) {
     ":" +
     configService.get("MONGO_PORT") +
     "/" +
-    configService.get("MONGO_AUH_DB")
+    configService.get("MONGO_DB")
   );
 }
 
