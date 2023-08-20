@@ -1,9 +1,9 @@
 import { Injectable } from "@nestjs/common";
 import { ModelType } from "@typegoose/typegoose/lib/types";
+import { InjectModel } from "nestjs-typegoose";
 import { CreateTopPageDto } from "./dto/create.top.page.dto";
 import { FindTopPageDto } from "./dto/find.top.page.dto";
 import { TopPageModel } from "./top.page.model";
-import { InjectModel } from "nestjs-typegoose";
 
 @Injectable()
 export class TopPageService {
@@ -42,10 +42,20 @@ export class TopPageService {
     Pick<TopPageModel, "_id" | "alias" | "secondCategory" | "title">[] | null
   > {
     return this.topPageModel
-      .find(
-        { firstCategory: dto.firstCategory },
-        { alias: 1, secondCategory: 1, title: 1 },
-      )
+      .aggregate()
+      .match({ firstCategory: dto.firstCategory })
+      .group({
+        _id: { secondCategory: "$secondCategory" },
+        pages: { $push: { alias: "$alias", titile: "$title" } },
+      })
+      .exec();
+  }
+
+  async findByTextSearch(query: string): Promise<TopPageModel[] | null> {
+    return this.topPageModel
+      .find({
+        $text: { $search: query, $caseSensitive: false },
+      })
       .exec();
   }
 }

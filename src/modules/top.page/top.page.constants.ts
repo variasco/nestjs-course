@@ -11,3 +11,5 @@ export const PAGE_DELETE_SUCCESS = (id: string) =>
   `Страница с id: ${id} удалена успешно`;
 
 export const PAGE_NOT_FOUND_BY_CATEGORY = `Ни одной страницы по запрашиваемой категории не найдено`;
+
+export const PAGE_NOT_FOUND = "Ничего не найдено";
